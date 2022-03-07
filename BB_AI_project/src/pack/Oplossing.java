@@ -10,6 +10,7 @@ public class Oplossing {
 
 	public void setI(int i) {
 		this.i = i;
+		//testing push
 	}
 	
 	
