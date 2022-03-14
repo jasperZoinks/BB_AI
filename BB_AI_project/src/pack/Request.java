@@ -12,6 +12,7 @@ public class Request {
 	private ArrayList<Auto> autos;
 	private int P1;
 	private int P2;
+	private Auto toegAuto;
 	
 	public Request(String ID, Zone ZID, int dag, int starttijd, int duurtijd, ArrayList<Auto> autos, int P1, int P2){
 		this.ID = ID;
@@ -22,6 +23,7 @@ public class Request {
 		this.autos = autos;
 		this.P1 = P1;
 		this.P2 = P2;
+		this.toegAuto = null;
 	}
 
 	public String getID() {
@@ -87,6 +89,20 @@ public class Request {
 	public void setP2(int p2) {
 		P2 = p2;
 	}
+
+	public Auto getToegAuto() {
+		return toegAuto;
+	}
+
+	public void setToegAuto(Auto toegAuto) {
+		this.toegAuto = toegAuto;
+	}
+	
+	public void wijsToe(Auto a) {
+		this.toegAuto = a;
+		a.getAllRequests().add(this);
+	}
+	
 	
 	
 }

@@ -9,7 +9,6 @@ public class Zone {
 	private String id;
 	
 	
-	
 	public Zone(ArrayList<Zone> buurZones, String id, ArrayList<Auto> geparkeerdeAutos) {
 		this.buurZones = buurZones;
 		this.id = id;
