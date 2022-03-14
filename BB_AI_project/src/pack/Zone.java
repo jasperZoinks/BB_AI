@@ -7,15 +7,29 @@ public class Zone {
 	
 	private ArrayList<Zone> buurZones; 
 	private String id;
-	private ArrayList<Auto> geparkeerdeAutos;
+	
 	
 	
 	public Zone(ArrayList<Zone> buurZones, String id, ArrayList<Auto> geparkeerdeAutos) {
 		this.buurZones = buurZones;
 		this.id = id;
-		this.geparkeerdeAutos = geparkeerdeAutos;
+		
 	}
 	
+	
+	@Override
+	public String toString() {
+		String tot ="------\n"+"id = "+ this.id+"\n";
+		tot+="geburen: ";
+		for(int i=0;i<buurZones.size();i++) {
+			tot+=buurZones.get(i).getId()+" ";
+		}
+		tot+="\n------\n";
+		return tot;
+		
+	}
+
+
 	public ArrayList<Zone> getBuurZones() {
 		return buurZones;
 	}
@@ -27,12 +41,6 @@ public class Zone {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public ArrayList<Auto> getGeparkeerdeAutos() {
-		return geparkeerdeAutos;
-	}
-	public void setGeparkeerdeAutos(ArrayList<Auto> geparkeerdeAutos) {
-		this.geparkeerdeAutos = geparkeerdeAutos;
 	}
 
 	
