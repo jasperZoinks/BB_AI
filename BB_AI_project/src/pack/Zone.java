@@ -34,6 +34,9 @@ public class Zone {
 	public void setGeparkeerdeAutos(ArrayList<Auto> geparkeerdeAutos) {
 		this.geparkeerdeAutos = geparkeerdeAutos;
 	}
+	public void addGeparkeerdeAutos(Auto a) {
+		this.geparkeerdeAutos.add(a);
+	}
 
 	
 }
