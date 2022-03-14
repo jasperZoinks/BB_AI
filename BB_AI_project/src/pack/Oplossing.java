@@ -11,12 +11,18 @@ public class Oplossing {
 	private ArrayList<Auto> autos;
 	private int kost;
 	
-	public Oplossing(int ID, ArrayList<Request> req, ArrayList<Zone> zones, ArrayList<Auto> autos) {
+	public Oplossing(ArrayList<Request> req, ArrayList<Zone> zones, ArrayList<Auto> autos) {
 		this.ID = Oplossing.IDteller++;
 		this.req = req;
 		this.zones = zones;
 		this.autos = autos;
 		this.kost = 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Oplossing [ID=" + ID + ", req=" + req.size() + ", zones=" + zones.size() + ", autos=" + autos.size() + ", kost=" + kost
+				+ "]";
 	}
 
 	public int getID() {

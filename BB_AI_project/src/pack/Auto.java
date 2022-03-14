@@ -10,9 +10,14 @@ public class Auto {
 	public Auto(String id, ArrayList<Request> allRequests) {
 		this.id=id;
 		this.allRequests=allRequests;
-		
+		this.zone=null;
 	}
 	
+	@Override
+	public String toString() {
+		return "Auto [id=" + id + ", allRequests=" + allRequests + ", zone=" + zone + "]";
+	}
+
 	public String getId() {
 		return id;
 	}
