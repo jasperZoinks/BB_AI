@@ -98,6 +98,11 @@ public class Request {
 		this.toegAuto = toegAuto;
 	}
 	
+	public void wijsToe(Auto a) {
+		this.toegAuto = a;
+		a.getAllRequests().add(this);
+	}
+	
 	
 	
 }

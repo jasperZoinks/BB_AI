@@ -34,6 +34,25 @@ public class Auto {
 		this.zone = zone;
 	}
 	
+	public void addReq(Request req) {
+		this.allRequests.add(req);
+	}
+	
+	public boolean isFree(int dag, int starttijd, int duurtijd) {
+		int startpunt = dag*1440 + starttijd;
+		int eindpunt = startpunt + duurtijd;
+		
+		for(int i = 0; i < this.allRequests.size(); i++)
+		{
+			int start = this.allRequests.get(i).getDag() + this.allRequests.get(i).getStarttijd();
+			int eind = start + this.allRequests.get(i).getDuurtijd();
+			if(!(eind < startpunt || start > eindpunt))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 	
 
 }
