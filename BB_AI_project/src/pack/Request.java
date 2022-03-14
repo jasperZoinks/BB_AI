@@ -1,5 +1,7 @@
 package pack;
 
+import java.util.ArrayList;
+
 public class Request {
 
 	private String ID;
@@ -7,11 +9,11 @@ public class Request {
 	private int dag;
 	private int starttijd;
 	private int duurtijd;
-	private List<Auto> autos;
+	private ArrayList<Auto> autos;
 	private int P1;
 	private int P2;
 	
-	public Request(String ID, Zone ZID, int dag, int starttijd, int duurtijd, List autos, int P1, int P2){
+	public Request(String ID, Zone ZID, int dag, int starttijd, int duurtijd, ArrayList<Auto> autos, int P1, int P2){
 		this.ID = ID;
 		this.ZID = ZID;
 		this.dag = dag;
@@ -62,11 +64,11 @@ public class Request {
 		this.duurtijd = duurtijd;
 	}
 
-	public List<Auto> getAutos() {
+	public ArrayList<Auto> getAutos() {
 		return autos;
 	}
 
-	public void setAutos(List<Auto> autos) {
+	public void setAutos(ArrayList<Auto> autos) {
 		this.autos = autos;
 	}
 
