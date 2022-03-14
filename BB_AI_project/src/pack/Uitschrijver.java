@@ -24,7 +24,7 @@ public class Uitschrijver {
 		FileWriter fw = new FileWriter("out.txt");
 		
 		//write Auto-to-Zone
-		fw.write("100");
+		fw.write(Integer.toString(opl.getReq().size()));
 		fw.write("+Vehicle assignments");
 		ArrayList<Auto> autos = this.opl.getAutos();
 		for (int i = 0; i < autos.size(); i++) {
