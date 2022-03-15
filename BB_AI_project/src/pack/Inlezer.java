@@ -140,11 +140,5 @@ public class Inlezer {
 	public void setPath(String path) {
 		this.path = path;
 	}
-
-	public static void main(String[] args) {
-		Inlezer nInlezer=new Inlezer();
-		Oplossing firstSol=nInlezer.readIn();
-		System.out.println(firstSol.toString());
-	}
 	
 }

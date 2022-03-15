@@ -10,13 +10,6 @@ public class Request {
 	private int starttijd;
 	private int duurtijd;
 	private ArrayList<Auto> autos;
-	
-	@Override
-	public String toString() {
-		return "Request [ID=" + this.ID + ", ZID=" + this.ZID.toString() + ", dag=" + dag + ", starttijd=" + starttijd + ", duurtijd="
-				+ duurtijd + ", autos=" + this.autos.toString() + ", P1=" + P1 + ", P2=" + P2 + ", toegAuto=" + toegAuto + "]";
-	}
-
 	private int P1;
 	private int P2;
 	private Auto toegAuto;
