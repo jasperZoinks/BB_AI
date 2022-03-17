@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Inlezer {
-	private String path="\\src\\100_5_14_25.csv";
 	ArrayList <Request> allReq= new ArrayList<Request>();
 	ArrayList <Auto> allAuto = new ArrayList<Auto>();
 	ArrayList <Zone> allZone = new ArrayList<Zone>();
 	
-	public Oplossing readIn() {
+	public Oplossing readIn(String path) {
 	    try {
 			String localDir = System.getProperty("user.dir");
-			File file = new File(localDir + this.getPath());
+			File file = new File(localDir + path);
 			//System.out.println(file.getAbsolutePath());
 	    	
 			//first: read in all requests
@@ -132,13 +131,4 @@ public class Inlezer {
 			this.allZone.get(j).setBuurZones(allNeigh);		
 		}
 	}
-	
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-	
 }

@@ -6,7 +6,8 @@ public class Main {
 	
 	public Main() {
 		Inlezer nInlezer=new Inlezer();
-		Oplossing firstSol=nInlezer.readIn();
+		String pathToFile = "\\src\\100_5_14_25.csv";
+		Oplossing firstSol=nInlezer.readIn(pathToFile);
 		System.out.println(firstSol.toString());
 		InitOpl initOpl = new InitOpl(firstSol);
 		initOpl.verdeelAutos();
