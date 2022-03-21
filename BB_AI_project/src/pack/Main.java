@@ -11,6 +11,7 @@ public class Main {
 		System.out.println(firstSol.toString());
 		InitOpl initOpl = new InitOpl(firstSol);
 		initOpl.verdeelAutos();
+		initOpl.getOpl().makeChanges();
 		initOpl.koppelReq();
 		Uitschrijver writer = new Uitschrijver(firstSol);
 		try {

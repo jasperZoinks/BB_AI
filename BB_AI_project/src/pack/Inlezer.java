@@ -92,7 +92,7 @@ public class Inlezer {
 	
 	public void readCar(Scanner reader,int countCar) {
 		for(int i=0; i<countCar;i++){
-			Auto temp = new Auto("car"+i,null);
+			Auto temp = new Auto("car"+i);
 			this.allAuto.add(temp);
 		}
 		/*
@@ -106,7 +106,7 @@ public class Inlezer {
 		
 		//alle zones aanmaken
 		for(int i=0;i<countZone;i++) {
-			Zone temp =new Zone(null,"z"+i,null);
+			Zone temp =new Zone(null,"z"+i,null,0);
 			this.allZone.add(temp);
 		}
 		
@@ -124,6 +124,7 @@ public class Inlezer {
 				String a = zoneNeigh[k];
 				a = a.replace("z","");
 				int zoneIndex = Integer.parseInt(a);
+				this.allZone.get(zoneIndex).setIdInt(zoneIndex);
 				//adding these indexes to the zone
 				allNeigh.add(this.allZone.get(zoneIndex));
 			}

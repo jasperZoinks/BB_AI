@@ -7,15 +7,27 @@ public class Zone {
 	
 	private ArrayList<Zone> buurZones; 
 	private String id;
+	private int idInt;
 	
 	
-	public Zone(ArrayList<Zone> buurZones, String id, ArrayList<Auto> geparkeerdeAutos) {
+	public Zone(ArrayList<Zone> buurZones, String id, ArrayList<Auto> geparkeerdeAutos,int idInt) {
 		this.buurZones = buurZones;
 		this.id = id;
+		this.idInt=idInt;
 		
 	}
 	
 	
+	public int getIdInt() {
+		return idInt;
+	}
+
+
+	public void setIdInt(int idInt) {
+		this.idInt = idInt;
+	}
+
+
 	@Override
 	public String toString() {
 		String tot ="------\n"+"id = "+ this.id+"\n";
