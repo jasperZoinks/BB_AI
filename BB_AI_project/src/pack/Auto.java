@@ -8,6 +8,12 @@ public class Auto {
 	private Zone zone;
 	private static final int minInDag = 1440;
 	
+	public Auto(String id, ArrayList<Request> allRequestss, Zone zone) {
+		this.id=id;
+		this.allRequests = allRequestss;
+		this.zone=zone;
+	}
+	
 	public Auto(String id) {
 		this.id=id;
 		this.allRequests = new ArrayList<Request>();

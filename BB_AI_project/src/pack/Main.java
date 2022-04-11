@@ -11,7 +11,31 @@ public class Main {
 		System.out.println(firstSol.toString());
 		InitOpl initOpl = new InitOpl(firstSol);
 		initOpl.verdeelAutos();
-		initOpl.getOpl().makeChanges();
+		
+		Oplossing bestOpl= initOpl.getOpl().makeChanges();
+		Oplossing newOpl =bestOpl;
+		
+		
+		int counter=0;
+		while(true) {
+			counter++;
+			newOpl = bestOpl.makeChanges();
+			if(newOpl.getKost()<=bestOpl.getKost()) {
+				System.out.println("--------");
+				System.out.println("better solution found!");
+				System.out.println("Old Cost: "+ bestOpl.getKost()+" New Cost : "+newOpl.getKost());
+				System.out.println("--------");
+				bestOpl=newOpl;
+				if(bestOpl.getKost()<10000)
+					break;
+			}
+			if( (counter%1000000)==0) {
+				counter=0;
+				System.out.println("No Better solution this kost : "+newOpl.getKost());
+			}
+			
+		}
+		
 		initOpl.koppelReq();
 		Uitschrijver writer = new Uitschrijver(firstSol);
 		try {

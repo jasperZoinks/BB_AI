@@ -65,9 +65,11 @@ public class Oplossing {
 	public void setKost(int kost) {
 		this.kost = kost;
 	}
+	
 	public void cleanUp(ArrayList<Auto> cleanedCar,ArrayList<Request> cleanedReq) {
 		for(int i=0;i<this.getAutos().size();i++) {
-			Auto a=new Auto(this.getAutos().get(i).getId());
+			//lege requests aan koppelen
+			Auto a=new Auto(this.getAutos().get(i).getId(),new ArrayList<Request>(),this.getAutos().get(i).getZone());
 			cleanedCar.add(a);
 		}
 		for(int i=0;i<this.getReq().size();i++) {
@@ -84,42 +86,36 @@ public class Oplossing {
 		
 	}
 	
-	public void makeChanges() {
+	public Oplossing makeChanges() {
 		//algoritme om veranderingen te maken
 		//veranderingen die kunnen gedaan worden:
 		//		-auto aan andere zone toewijzen
 		//		-een andere mogelijke auto toewijzen van de mogelijke requests
 		
 		Random rand = new Random();	//de seed van deze random fctie is een gekregen argument
-		int upperRandom=5;
+		int upperRandom=this.getZones().size();			
 		int randomInt;
-		int nextSpot;
-		int currentSpot;
 		
 		//nog proper maken van de items:
 		ArrayList<Auto> cleanedCar = new ArrayList<Auto>();
 		ArrayList<Request> cleanedReq = new ArrayList<Request>();
 		this.cleanUp(cleanedCar, cleanedReq);
-		//nog oppassen met die static die word aangepast!
+		
+		//------nog oppassen met die static die word aangepast!
+		
 		Oplossing newOpl = new Oplossing(cleanedReq, this.getZones(),cleanedCar);
 		
-		for(int i=0;i<this.getAutos().size();i++) {
+		//auto's hun plaats aanpassen
+		for(int i=0;i<newOpl.getAutos().size();i++) {
 			randomInt=rand.nextInt(upperRandom);
-			//probleem: zone = null, zitten wel in de variabele maar krijgen geen waarde.
-			currentSpot=newOpl.getAutos().get(i).getZone().getIdInt();
-			nextSpot=currentSpot+randomInt;
-			
-			//als het over de max van mogelijke zones gaat
-			if(nextSpot>this.getZones().size()) {
-				nextSpot=nextSpot-this.getZones().size();
-			}
 			//auto zijn zone aanpassen
-			newOpl.getAutos().get(i).setZone(this.getZones().get(nextSpot));
+			newOpl.getAutos().get(i).setZone(newOpl.getZones().get(randomInt));
 		}
 		//nu hebben we een nieuwe oplossing gemaakt
 		//de reservaties nu ook veranderen. ook direct kost berekenen, anders een geknoei
 		this.koppelReq(newOpl);
 		
+		return newOpl;
 		
 	}
 	
