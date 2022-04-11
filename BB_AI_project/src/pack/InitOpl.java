@@ -28,6 +28,8 @@ public class InitOpl {
 			//zones.get(j).addGeparkeerdeAutos(autos.get(i));
 			if(j==zones.size()) {j=0;}
 		}
+		this.opl.setAutos(autos);
+		this.opl.setZones(zones);
 	}
 	
 	public void koppelReq() {
@@ -40,8 +42,10 @@ public class InitOpl {
 				Auto a = autos.get(j);
 				if(a.getZone().getId()==req.get(i).getZID().getId())//ligt auto in zone
 				{
+					//kijken of auto op dat tijdstip vrij is
 					if(a.isFree(req.get(i).getDag(), req.get(i).getStarttijd(), req.get(i).getDuurtijd()))
 					{
+						//auto toewijzen
 						req.get(i).wijsToe(a);
 						break;
 					}
