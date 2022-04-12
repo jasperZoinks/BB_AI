@@ -6,41 +6,41 @@ public class Main {
 	
 	public Main() {
 		Inlezer nInlezer=new Inlezer();
-		String pathToFile = "\\src\\100_5_14_25.csv";
+		String pathToFile = "\\src\\210_5_44_25.csv";
 		Oplossing firstSol=nInlezer.readIn(pathToFile);
-		System.out.println(firstSol.toString());
+		//System.out.println(firstSol.toString());
 		InitOpl initOpl = new InitOpl(firstSol);
 		initOpl.verdeelAutos();
 		
 		Oplossing bestOpl= initOpl.getOpl().makeChanges();
-		Oplossing newOpl =bestOpl;
-		
+		Oplossing newOpl =bestOpl;		
 		
 		int counter=0;
 		while(true) {
 			counter++;
 			newOpl = bestOpl.makeChanges();
-			if(newOpl.getKost()<=bestOpl.getKost()) {
+			
+			if(newOpl.getKost()<bestOpl.getKost()) {
 				System.out.println("--------");
 				System.out.println("better solution found!");
-				System.out.println("Old Cost: "+ bestOpl.getKost()+" New Cost : "+newOpl.getKost());
-				System.out.println("--------");
+				System.out.println("Old Cost: "+ bestOpl.getKost()+" , New Cost : "+newOpl.getKost());
+				
 				bestOpl=newOpl;
-				if(bestOpl.getKost()<10000)
-					break;
+				this.writeSolution(bestOpl);
 			}
-			if( (counter%1000000)==0) {
+			if( (counter%100000)==0) {
 				counter=0;
-				System.out.println("No Better solution this kost : "+newOpl.getKost());
+				System.out.println("\tBRRrrRRrrRrR CalCuLATinG......");
 			}
 			
 		}
-		
-		initOpl.koppelReq();
-		Uitschrijver writer = new Uitschrijver(firstSol);
+	}
+	
+	public void writeSolution(Oplossing curOplossing) {
+		Uitschrijver writer = new Uitschrijver(curOplossing);
 		try {
 			writer.Schrijven();
-			System.out.println("InitOpl --> weggeschreven!");
+			System.out.println("oplossing --> weggeschreven!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

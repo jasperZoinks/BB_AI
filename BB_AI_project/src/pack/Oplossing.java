@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Oplossing {
 
-	private static int IDteller = 0;
+	//private static int IDteller = 0;
 	private int ID;
 	private ArrayList<Request> req;
 	private ArrayList<Zone> zones;
@@ -13,7 +13,7 @@ public class Oplossing {
 	private int kost;
 	
 	public Oplossing(ArrayList<Request> req, ArrayList<Zone> zones, ArrayList<Auto> autos) {
-		this.ID = Oplossing.IDteller++;
+		//this.ID = Oplossing.IDteller++;
 		this.req = req;
 		this.zones = zones;
 		this.autos = autos;
@@ -67,10 +67,12 @@ public class Oplossing {
 	}
 	
 	public void cleanUp(ArrayList<Auto> cleanedCar,ArrayList<Request> cleanedReq) {
-		for(int i=0;i<this.getAutos().size();i++) {
-			//lege requests aan koppelen
-			Auto a=new Auto(this.getAutos().get(i).getId(),new ArrayList<Request>(),this.getAutos().get(i).getZone());
-			cleanedCar.add(a);
+		if(cleanedCar!=null) {
+			for(int i=0;i<this.getAutos().size();i++) {
+				//lege requests aan koppelen
+				Auto a=new Auto(this.getAutos().get(i).getId(),new ArrayList<Request>(),this.getAutos().get(i).getZone());
+				cleanedCar.add(a);
+			}
 		}
 		for(int i=0;i<this.getReq().size();i++) {
 			Request r = new Request(this.getReq().get(i).getID(),
@@ -100,32 +102,40 @@ public class Oplossing {
 		ArrayList<Auto> cleanedCar = new ArrayList<Auto>();
 		ArrayList<Request> cleanedReq = new ArrayList<Request>();
 		this.cleanUp(cleanedCar, cleanedReq);
-		
-		//------nog oppassen met die static die word aangepast!
-		
+
 		Oplossing newOpl = new Oplossing(cleanedReq, this.getZones(),cleanedCar);
 		
 		//auto's hun plaats aanpassen
+
 		for(int i=0;i<newOpl.getAutos().size();i++) {
 			randomInt=rand.nextInt(upperRandom);
-			//auto zijn zone aanpassen
+			//auto zijn zone aanpassen,
 			newOpl.getAutos().get(i).setZone(newOpl.getZones().get(randomInt));
 		}
 		//nu hebben we een nieuwe oplossing gemaakt
-		//de reservaties nu ook veranderen. ook direct kost berekenen, anders een geknoei
 		this.koppelReq(newOpl);
 		
-		return newOpl;
+		//nu het beste van de 2 onthouden, de huidige oplossing en de nieuwe oplossing
+		Oplossing bothWorlds= bestOf2Worlds(newOpl);
+		this.koppelReq(bothWorlds);
+		
+		return bothWorlds;
 		
 	}
 	
 	public void koppelReq(Oplossing toCheck) {
+		/*
+			-Functie krijgt een gevormde oplossing en berekend de kost van deze oplossing
+		*/
+		
 		//ArrayList<Request> req = toCheck.getReq().get(i); //hoe we nu aan de requests geraken
 		boolean carMatchReq=false;
 		boolean toegewezen=false;
+		//over elke request
 		for(int i=0; i<toCheck.getReq().size();i++)
 		{			
 			toegewezen=false;
+			//over elke auto
 			nextCarCheck:
 			for(int j=0; j<toCheck.getAutos().size(); j++)
 			{
@@ -190,7 +200,26 @@ public class Oplossing {
 			
 		}
 	}
-	
-	
+	public Oplossing bestOf2Worlds(Oplossing newOpl) {
+		
+		ArrayList<Auto> cleanedCar = new ArrayList<Auto>();
+		ArrayList<Request> cleanedReq = new ArrayList<Request>();
+		this.cleanUp(null, cleanedReq);	//auto moet nu niet overgeschreven worden
+		
+		for(int i=0;i<newOpl.getAutos().size();i++) {
+			Auto a;
+			if(newOpl.getAutos().get(i).getAllRequests().size()<this.getAutos().get(i).getAllRequests().size()) {
+				//betekend dat de nieuwe oplossing aan minder requests voldoet -> neem dan terug de oude oplossing
+				a=new Auto(this.getAutos().get(i).getId(),new ArrayList<Request>(),this.getAutos().get(i).getZone());
+			}
+			else {
+				a=new Auto(newOpl.getAutos().get(i).getId(),new ArrayList<Request>(),newOpl.getAutos().get(i).getZone());
+			}
+			cleanedCar.add(a);
+			
+		}
+		Oplossing comboOpl = new Oplossing(cleanedReq, this.getZones(),cleanedCar);
+		return comboOpl;
+	}
 	
 }
