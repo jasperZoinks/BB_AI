@@ -220,9 +220,9 @@ public class Oplossing {
 			}
 			
 		}
-		//In deze fuctie de kost bereken? misschien fout in berekening van kost hierboven
-		toCheck.setKost(toCheck.calcKost());
 	}
+	
+	
 	public Oplossing bestOf2Worlds(Oplossing newOpl) {
 		
 		ArrayList<Auto> cleanedCar = new ArrayList<Auto>();
@@ -260,6 +260,14 @@ public class Oplossing {
 	public void changeOne(int i) {
 		int newZoneID = (int) (Math.random() * this.zones.size());
 		this.autos.get(i).setZone(this.zones.get(newZoneID));
+	}
+	
+	public void changeOrder(int i) {
+		int newPlace = (int) (Math.random() * this.req.size());
+		Request tmp = this.req.get(newPlace);
+		this.req.set(newPlace, this.req.get(i));
+		this.req.set(i, tmp);
+		
 	}
 	
 }
