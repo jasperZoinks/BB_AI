@@ -2,7 +2,7 @@ package pack;
 
 import java.util.ArrayList;
 
-public class Request {
+public class Request implements Comparable<Request>{
 
 	private String ID;
 	private Zone ZID;
@@ -26,6 +26,11 @@ public class Request {
 		this.toegAuto = null;
 	}
 
+	@Override
+    public int compareTo(Request o) {
+        return this.getDuurtijd() - o.getDuurtijd();
+    }
+	
 	public String getID() {
 		return ID;
 	}

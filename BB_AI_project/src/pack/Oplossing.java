@@ -220,6 +220,8 @@ public class Oplossing {
 			}
 			
 		}
+		//In deze fuctie de kost bereken? misschien fout in berekening van kost hierboven
+		toCheck.setKost(toCheck.calcKost());
 	}
 	public Oplossing bestOf2Worlds(Oplossing newOpl) {
 		
@@ -241,6 +243,23 @@ public class Oplossing {
 		}
 		Oplossing comboOpl = new Oplossing(cleanedReq, this.getZones(),cleanedCar);
 		return comboOpl;
+	}
+	
+	public Oplossing duplicate() {
+		
+		ArrayList<Auto> cleanedCar = new ArrayList<Auto>();
+		ArrayList<Request> cleanedReq = new ArrayList<Request>();
+		this.cleanUp(cleanedCar, cleanedReq);
+		
+		Oplossing dup;
+		dup = new Oplossing(cleanedReq, this.zones, cleanedCar);
+		
+		return dup;
+	}
+	
+	public void changeOne(int i) {
+		int newZoneID = (int) (Math.random() * this.zones.size());
+		this.autos.get(i).setZone(this.zones.get(newZoneID));
 	}
 	
 }
