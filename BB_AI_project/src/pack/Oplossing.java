@@ -66,6 +66,27 @@ public class Oplossing {
 		this.kost = kost;
 	}
 	
+	public int calcKost() {
+		int kost = 0;
+		
+		for(int i = 0; i<this.getReq().size(); i++)
+		{
+			if(this.getReq().get(i).getToegAuto()==null)
+			{
+				kost += this.getReq().get(i).getP1();
+			}
+			else
+			{
+				if(this.getReq().get(i).getToegAuto().getZone().getId() != this.getReq().get(i).getZID().getId())
+				{
+					kost += this.getReq().get(i).getP2();
+				}
+			}
+		}
+		
+		return kost;
+	}
+	
 	public void cleanUp(ArrayList<Auto> cleanedCar,ArrayList<Request> cleanedReq) {
 		if(cleanedCar!=null) {
 			for(int i=0;i<this.getAutos().size();i++) {

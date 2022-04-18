@@ -12,14 +12,15 @@ public class Main {
 		InitOpl initOpl = new InitOpl(firstSol);
 		initOpl.verdeelAutos();
 		
-		Oplossing bestOpl= initOpl.getOpl().makeChanges();
+		Oplossing bestOpl = initOpl.getOpl();
+		bestOpl.setKost(30000);
 		Oplossing newOpl =bestOpl;		
 		
 		int counter=0;
 		while(true) {
 			counter++;
 			newOpl = bestOpl.makeChanges();
-			
+						
 			if(newOpl.getKost()<bestOpl.getKost()) {
 				System.out.println("--------");
 				System.out.println("better solution found!");
@@ -27,6 +28,10 @@ public class Main {
 				
 				bestOpl=newOpl;
 				this.writeSolution(bestOpl);
+			}
+			else
+			{
+				//System.out.println("Geen betere Opl " + bestOpl.getKost() + ", " + newOpl.getKost());
 			}
 			if( (counter%100000)==0) {
 				counter=0;
