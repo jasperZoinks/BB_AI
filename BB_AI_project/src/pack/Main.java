@@ -5,14 +5,16 @@ import java.util.ArrayList;
 
 public class Main {
 	
-	public Main() {
+	public Main(int duur) {
 		Inlezer nInlezer=new Inlezer();
-		String pathToFile = "\\src\\210_5_44_25.csv";
+		String pathToFile = "\\src\\360_5_71_25.csv";
 		Oplossing firstSol=nInlezer.readIn(pathToFile);
 		//System.out.println(firstSol.toString());
 		InitOpl initOpl = new InitOpl(firstSol);
 		initOpl.verdeelAutos();
 		this.writeSolution(initOpl.getOpl());
+		
+		long startTime = System.currentTimeMillis();
 		
 		//Optie 1
 		/*
@@ -21,7 +23,7 @@ public class Main {
 		Oplossing newOpl =bestOpl;		
 		
 		int counter=0;
-		while(true) {
+		while(System.currentTimeMillis()-startTime) < (duur*60000)) {
 			counter++;
 			newOpl = bestOpl.makeChanges();
 						
@@ -51,7 +53,7 @@ public class Main {
 		allTimeBestOpl.koppelReq(allTimeBestOpl);
 
 		int teller = 0;
-		while(true)
+		while((System.currentTimeMillis()-startTime) < (duur*60000))
 		{
 			ArrayList<Oplossing> potOpl = new ArrayList<Oplossing>();
 			System.out.println("===");
@@ -70,7 +72,7 @@ public class Main {
 				potOpl.add(newOpl);				
 			}
 			for(int i = 0;i<potOpl.size(); i++)
-			{
+			{ 
 				if(potOpl.get(i).getKost() < bestOpl.getKost())
 				{
 					System.out.println("better solution found!");
@@ -113,7 +115,16 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		Main m = new Main();
+		int duur;
+		if(args.length >= 1)
+		{
+			duur = Integer.parseInt(args[0]);
+		}
+		else
+		{
+			duur = 5;
+		}
+		Main m = new Main(duur);
 
 	}
 
