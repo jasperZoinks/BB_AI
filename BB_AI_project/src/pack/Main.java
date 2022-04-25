@@ -15,12 +15,6 @@ public class Main {
 		initOpl.verdeelAutos();
 		//initOpl.verdeelAutosRandom();
 		
-		long start = System.currentTimeMillis();
-		int seconds = 300;	//dit is 5 minuten
-		long end = start + (seconds * 1000) ;
-		
-		//this.writeSolution(initOpl.getOpl());
-		
 		long startTime = System.currentTimeMillis();
 		
 		//Optie 1
@@ -30,11 +24,7 @@ public class Main {
 		Oplossing newOpl =bestOpl;		
 		
 		int counter=0;
-<<<<<<< HEAD
-		while(System.currentTimeMillis()<end) {
-=======
 		while(System.currentTimeMillis()-startTime) < (duur*100)) {
->>>>>>> branch 'main' of https://github.com/jasperZoinks/BB_AI.git
 			counter++;
 			newOpl = bestOpl.makeChanges();
 						
@@ -65,20 +55,12 @@ public class Main {
 		allTimeBestOpl.koppelReq(allTimeBestOpl);
 
 		int teller = 0;
-<<<<<<< HEAD
-		while(System.currentTimeMillis()<end)
-=======
+
 		while((System.currentTimeMillis()-startTime) < (duur*100)) //Local Search met maximale duur
->>>>>>> branch 'main' of https://github.com/jasperZoinks/BB_AI.git
 		{
 			ArrayList<Oplossing> potOpl = new ArrayList<Oplossing>();
-<<<<<<< HEAD
-			//System.out.println("===");
-			for(int i = 0; i<bestOpl.getAutos().size(); i++)
-=======
 			System.out.println("===");
 			for(int i = 0; i<bestOpl.getAutos().size(); i++) //LS adhv het verplaatsen van auto's
->>>>>>> branch 'main' of https://github.com/jasperZoinks/BB_AI.git
 			{
 				Oplossing newOpl = bestOpl.duplicate();
 				newOpl.changeOne(i);
@@ -126,11 +108,6 @@ public class Main {
 			}
 			teller++;
 		}
-<<<<<<< HEAD
-		
-		
-=======
->>>>>>> branch 'main' of https://github.com/jasperZoinks/BB_AI.git
 	}
 	
 	public void writeSolution(Oplossing curOplossing) {
