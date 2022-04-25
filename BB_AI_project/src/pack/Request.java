@@ -107,7 +107,4 @@ public class Request implements Comparable<Request>{
 		this.toegAuto = a;
 		a.getAllRequests().add(this);
 	}
-	
-	
-	
 }

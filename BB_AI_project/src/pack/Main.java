@@ -23,7 +23,7 @@ public class Main {
 		Oplossing newOpl =bestOpl;		
 		
 		int counter=0;
-		while(System.currentTimeMillis()-startTime) < (duur*60000)) {
+		while(System.currentTimeMillis()-startTime) < (duur*100)) {
 			counter++;
 			newOpl = bestOpl.makeChanges();
 						
@@ -53,25 +53,25 @@ public class Main {
 		allTimeBestOpl.koppelReq(allTimeBestOpl);
 
 		int teller = 0;
-		while((System.currentTimeMillis()-startTime) < (duur*60000))
+		while((System.currentTimeMillis()-startTime) < (duur*100)) //Local Search met maximale duur
 		{
 			ArrayList<Oplossing> potOpl = new ArrayList<Oplossing>();
 			System.out.println("===");
-			for(int i = 0; i<bestOpl.getAutos().size(); i++)
+			for(int i = 0; i<bestOpl.getAutos().size(); i++) //LS adhv het verplaatsen van auto's
 			{
 				Oplossing newOpl = bestOpl.duplicate();
 				newOpl.changeOne(i);
 				newOpl.koppelReq(newOpl);
 				potOpl.add(newOpl);				
 			}
-			for(int i = 0; i<bestOpl.getReq().size(); i++)
+			for(int i = 0; i<bestOpl.getReq().size(); i++) //LS adhv het wijzigen van de volgorde van requests
 			{
 				Oplossing newOpl = bestOpl.duplicate();
 				newOpl.changeOrder(i);
 				newOpl.koppelReq(newOpl);
 				potOpl.add(newOpl);				
 			}
-			for(int i = 0;i<potOpl.size(); i++)
+			for(int i = 0;i<potOpl.size(); i++) //Check of er een betere oplossing gevonden is
 			{ 
 				if(potOpl.get(i).getKost() < bestOpl.getKost())
 				{
@@ -81,7 +81,7 @@ public class Main {
 					bestOpl = potOpl.get(i);
 					teller = 0;
 					
-					if(bestOpl.getKost() < allTimeBestOpl.getKost())
+					if(bestOpl.getKost() < allTimeBestOpl.getKost()) //Schrijf de beste oplossing tot nu toe weg
 					{
 						allTimeBestOpl = bestOpl.duplicate();
 						allTimeBestOpl.koppelReq(allTimeBestOpl);
@@ -89,7 +89,7 @@ public class Main {
 					}
 				}
 			}
-			if(teller > 150)
+			if(teller > 150) //Wanneer er 150 keer geen verbetering komt -> maak bewust een random beweging
 			{
 				teller = 0;
 				int tmpKost = bestOpl.getKost();
@@ -100,7 +100,6 @@ public class Main {
 			}
 			teller++;
 		}
-		
 	}
 	
 	public void writeSolution(Oplossing curOplossing) {
@@ -109,7 +108,6 @@ public class Main {
 			writer.Schrijven();
 			System.out.println("oplossing --> weggeschreven!");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -125,7 +123,5 @@ public class Main {
 			duur = 5;
 		}
 		Main m = new Main(duur);
-
 	}
-
 }

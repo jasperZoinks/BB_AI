@@ -86,7 +86,6 @@ public class Inlezer {
 			int pen2= Integer.parseInt(allParts[7]);
 			Request nReq = new Request(resID,zoneID,dag,startT,duurT,carAdd,pen1,pen2);
 			this.allReq.add(nReq);		
-			
 		}
 	}
 	
@@ -95,11 +94,6 @@ public class Inlezer {
 			Auto temp = new Auto("car"+i);
 			this.allAuto.add(temp);
 		}
-		/*
-		for(int j=0;j<this.allAuto.size();j++) {
-			System.out.println(this.allAuto.get(j).toString());
-		}
-		*/
 	}
 	
 	public void readZones(Scanner reader,int countZone) {

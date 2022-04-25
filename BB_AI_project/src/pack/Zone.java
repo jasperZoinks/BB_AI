@@ -14,9 +14,7 @@ public class Zone {
 		this.buurZones = buurZones;
 		this.id = id;
 		this.idInt=idInt;
-		
 	}
-	
 	
 	public int getIdInt() {
 		return idInt;
@@ -27,7 +25,6 @@ public class Zone {
 		this.idInt = idInt;
 	}
 
-
 	@Override
 	public String toString() {
 		String tot ="------\n"+"id = "+ this.id+"\n";
@@ -37,9 +34,7 @@ public class Zone {
 		}
 		tot+="\n------\n";
 		return tot;
-		
 	}
-
 
 	public ArrayList<Zone> getBuurZones() {
 		return buurZones;
@@ -53,6 +48,4 @@ public class Zone {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	
 }
