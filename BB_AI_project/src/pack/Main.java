@@ -136,15 +136,16 @@ public class Main extends Thread{
 			outputfile = args[1];
 			duur = Integer.parseInt(args[2]);
 			threads = Integer.parseInt(args[3]);
+			
+			for(int i=0; i<threads; i++)
+			{
+				Main m = new Main(inputfile, outputfile, duur, i);
+				m.start();
+			}
 		}
 		catch (Exception e)
 		{
 			System.out.println("Iets mis met de argumenten.");
-		}
-		for(int i=0; i<threads; i++)
-		{
-			Main m = new Main(inputfile, outputfile, duur, i);
-			m.start();
 		}
 	}
 }
