@@ -6,34 +6,34 @@ import java.util.ArrayList;
 
 public class Uitschrijver {
 
-	private Oplossing opl;
+	private String outputfile;
 
-	public Uitschrijver(Oplossing opl) {
-		this.opl = opl;
-	}
-
-	public Oplossing getOpl() {
-		return opl;
-	}
-
-	public void setOpl(Oplossing opl) {
-		this.opl = opl;
+	public Uitschrijver(String outputfile) {
+		this.outputfile = outputfile;
 	}
 	
-	public void Schrijven() throws IOException {
-		FileWriter fw = new FileWriter("out.txt");
+	public String getOutputfile() {
+		return outputfile;
+	}
+
+	public void setOutputfile(String outputfile) {
+		this.outputfile = outputfile;
+	}
+
+	public void Schrijven(Oplossing opl) throws IOException {
+		FileWriter fw = new FileWriter(this.outputfile);
 		
 		//write Auto-to-Zone
 		fw.write(Integer.toString(opl.getKost()) + "\n");
 		fw.write("+Vehicle assignments\n");
-		ArrayList<Auto> autos = this.opl.getAutos();
+		ArrayList<Auto> autos = opl.getAutos();
 		for (int i = 0; i < autos.size(); i++) {
 			String s = autos.get(i).getId() +";"+ autos.get(i).getZone().getId()  + "\n";
 			fw.write(s);
 		}
 		//write gelukte requests
 		fw.write("+Assigned requests\n");
-		ArrayList<Request> req = this.opl.getReq();
+		ArrayList<Request> req = opl.getReq();
 		for (int i = 0; i < req.size(); i++) {
 			if(req.get(i).getToegAuto()!=null)
 			{
@@ -51,5 +51,6 @@ public class Uitschrijver {
 			}
 		}
 		fw.close();
+		System.out.println("Weggeschrijven - OK");
 	}
 }

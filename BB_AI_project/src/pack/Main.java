@@ -3,16 +3,35 @@ package pack;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Main {
+public class Main extends Thread{
+	private String inputfile;
+	private String outputfile;
+	int duur;
+	int nr;
 	
-	public Main(int duur) {
-		Inlezer nInlezer=new Inlezer();
-		String pathToFile = "\\src\\360_5_71_25.csv";
+	public Main(String inputfile, String outputfile, int duur, int nr) {
+		this.inputfile = inputfile;
+		this.outputfile = outputfile;
+		this.duur = duur;
+		this.nr = nr;
+	}
+	
+	@Override
+	public void run() {
+		System.out.println("Thread " + this.nr);
+		Inlezer nInlezer = new Inlezer();
+		String[] s = outputfile.split("\\.");
+		String outputfilename = s[0] +"_"+ this.nr +"."+ s[1];
+		Uitschrijver writer = new Uitschrijver(outputfilename);
+		String pathToFile = this.inputfile;
 		Oplossing firstSol=nInlezer.readIn(pathToFile);
-		//System.out.println(firstSol.toString());
 		InitOpl initOpl = new InitOpl(firstSol);
 		initOpl.verdeelAutos();
-		this.writeSolution(initOpl.getOpl());
+		try {
+			writer.Schrijven(initOpl.getOpl());
+		} catch (IOException e) {
+			System.out.println("Wegschrijven mislukt.");
+		}
 		
 		long startTime = System.currentTimeMillis();
 		
@@ -23,7 +42,7 @@ public class Main {
 		Oplossing newOpl =bestOpl;		
 		
 		int counter=0;
-		while(System.currentTimeMillis()-startTime) < (duur*100)) {
+		while(System.currentTimeMillis()-startTime) < (this.duur*1000)) {
 			counter++;
 			newOpl = bestOpl.makeChanges();
 						
@@ -53,7 +72,7 @@ public class Main {
 		allTimeBestOpl.koppelReq(allTimeBestOpl);
 
 		int teller = 0;
-		while((System.currentTimeMillis()-startTime) < (duur*100)) //Local Search met maximale duur
+		while((System.currentTimeMillis()-startTime) < (this.duur*1000)) //Local Search met maximale duur
 		{
 			ArrayList<Oplossing> potOpl = new ArrayList<Oplossing>();
 			System.out.println("===");
@@ -85,7 +104,11 @@ public class Main {
 					{
 						allTimeBestOpl = bestOpl.duplicate();
 						allTimeBestOpl.koppelReq(allTimeBestOpl);
-						this.writeSolution(allTimeBestOpl);
+						try {
+							writer.Schrijven(allTimeBestOpl);
+						} catch (IOException e) {
+							System.out.println("Wegschrijven mislukt.");
+						}
 					}
 				}
 			}
@@ -101,27 +124,27 @@ public class Main {
 			teller++;
 		}
 	}
-	
-	public void writeSolution(Oplossing curOplossing) {
-		Uitschrijver writer = new Uitschrijver(curOplossing);
-		try {
-			writer.Schrijven();
-			System.out.println("oplossing --> weggeschreven!");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public static void main(String[] args) {
-		int duur;
-		if(args.length >= 1)
+		String inputfile = "in.txt";
+		String outputfile = "out.txt";
+		int duur = 5;
+		int threads = 1;
+		try
 		{
-			duur = Integer.parseInt(args[0]);
+			inputfile = args[0];
+			outputfile = args[1];
+			duur = Integer.parseInt(args[2]);
+			threads = Integer.parseInt(args[3]);
 		}
-		else
+		catch (Exception e)
 		{
-			duur = 5;
+			System.out.println("Iets mis met de argumenten.");
 		}
-		Main m = new Main(duur);
+		for(int i=0; i<threads; i++)
+		{
+			Main m = new Main(inputfile, outputfile, duur, i);
+			m.start();
+		}
 	}
 }
