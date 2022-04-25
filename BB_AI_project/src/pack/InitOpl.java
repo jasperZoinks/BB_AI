@@ -19,14 +19,15 @@ public class InitOpl {
 		this.opl = opl;
 	}
 	
+	
 	public void verdeelAutos() {
+		//Verdeelt de autos over de zones op een zeer eenvoudige manier
 		ArrayList<Auto> autos = opl.getAutos(); 
 		ArrayList<Zone> zones = opl.getZones();
 		int j=0;
 		for(int i=0; i<autos.size(); i++)
 		{
 			autos.get(i).setZone(zones.get(j++));
-			//zones.get(j).addGeparkeerdeAutos(autos.get(i));
 			if(j==zones.size()) {j=0;}
 		}
 		this.opl.setAutos(autos);
@@ -50,6 +51,7 @@ public class InitOpl {
 	}
 	
 	public void koppelReq() {
+		//Doet een eerste poging om alle request te koppelen aan een auto. (zonder rekening te houden met buurzones)
 		ArrayList<Request> req = opl.getReq();
 		for(int i=0; i<req.size();i++)
 		{
@@ -57,7 +59,7 @@ public class InitOpl {
 			for(int j=0; j<autos.size(); j++)
 			{
 				Auto a = autos.get(j);
-				if(a.getZone().getId()==req.get(i).getZID().getId())//ligt auto in zone
+				if(a.getZone().getId()==req.get(i).getZID().getId())//ligt auto in zone?
 				{
 					//kijken of auto op dat tijdstip vrij is
 					if(a.isFree(req.get(i).getDag(), req.get(i).getStarttijd(), req.get(i).getDuurtijd()))
@@ -68,7 +70,6 @@ public class InitOpl {
 					}
 				}
 			}
-			
 		}
 	}
 }

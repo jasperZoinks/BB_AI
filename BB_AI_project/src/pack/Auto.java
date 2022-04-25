@@ -64,6 +64,4 @@ public class Auto {
 		}
 		return true;
 	}
-	
-
 }

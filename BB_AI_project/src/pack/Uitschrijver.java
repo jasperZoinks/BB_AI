@@ -40,7 +40,6 @@ public class Uitschrijver {
 				String s = req.get(i).getID() +";"+ req.get(i).getToegAuto().getId()  + "\n";
 				fw.write(s);
 			}
-			
 		}
 		//write mislukte requests
 		fw.write("+Unassigned requests\n");
@@ -51,7 +50,6 @@ public class Uitschrijver {
 				fw.write(s);
 			}
 		}
-	 
 		fw.close();
 	}
 }

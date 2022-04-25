@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Main {
 	
-	public Main() {
+	public Main(int duur) {
 		Inlezer nInlezer=new Inlezer();
 		String pathToFile = "\\src\\360_5_71_25.csv";
 		Oplossing firstSol=nInlezer.readIn(pathToFile);
@@ -21,6 +21,8 @@ public class Main {
 		
 		//this.writeSolution(initOpl.getOpl());
 		
+		long startTime = System.currentTimeMillis();
+		
 		//Optie 1
 		/*
 		Oplossing bestOpl = initOpl.getOpl();
@@ -28,7 +30,11 @@ public class Main {
 		Oplossing newOpl =bestOpl;		
 		
 		int counter=0;
+<<<<<<< HEAD
 		while(System.currentTimeMillis()<end) {
+=======
+		while(System.currentTimeMillis()-startTime) < (duur*100)) {
+>>>>>>> branch 'main' of https://github.com/jasperZoinks/BB_AI.git
 			counter++;
 			newOpl = bestOpl.makeChanges();
 						
@@ -59,18 +65,27 @@ public class Main {
 		allTimeBestOpl.koppelReq(allTimeBestOpl);
 
 		int teller = 0;
+<<<<<<< HEAD
 		while(System.currentTimeMillis()<end)
+=======
+		while((System.currentTimeMillis()-startTime) < (duur*100)) //Local Search met maximale duur
+>>>>>>> branch 'main' of https://github.com/jasperZoinks/BB_AI.git
 		{
 			ArrayList<Oplossing> potOpl = new ArrayList<Oplossing>();
+<<<<<<< HEAD
 			//System.out.println("===");
 			for(int i = 0; i<bestOpl.getAutos().size(); i++)
+=======
+			System.out.println("===");
+			for(int i = 0; i<bestOpl.getAutos().size(); i++) //LS adhv het verplaatsen van auto's
+>>>>>>> branch 'main' of https://github.com/jasperZoinks/BB_AI.git
 			{
 				Oplossing newOpl = bestOpl.duplicate();
 				newOpl.changeOne(i);
 				newOpl.koppelReq(newOpl);
 				potOpl.add(newOpl);				
 			}
-			for(int i = 0; i<bestOpl.getReq().size(); i++)
+			for(int i = 0; i<bestOpl.getReq().size(); i++) //LS adhv het wijzigen van de volgorde van requests
 			{
 				Oplossing newOpl = bestOpl.duplicate();
 				
@@ -81,8 +96,8 @@ public class Main {
 				
 				potOpl.add(newOpl);				
 			}
-			for(int i = 0;i<potOpl.size(); i++)
-			{
+			for(int i = 0;i<potOpl.size(); i++) //Check of er een betere oplossing gevonden is
+			{ 
 				if(potOpl.get(i).getKost() < bestOpl.getKost())
 				{
 					//System.out.println("better solution found!");
@@ -91,7 +106,7 @@ public class Main {
 					bestOpl = potOpl.get(i);
 					teller = 0;
 					
-					if(bestOpl.getKost() < allTimeBestOpl.getKost())
+					if(bestOpl.getKost() < allTimeBestOpl.getKost()) //Schrijf de beste oplossing tot nu toe weg
 					{
 						allTimeBestOpl = bestOpl.duplicate();
 						allTimeBestOpl.koppelReq(allTimeBestOpl);
@@ -100,7 +115,7 @@ public class Main {
 					}
 				}
 			}
-			if(teller > 150)
+			if(teller > 150) //Wanneer er 150 keer geen verbetering komt -> maak bewust een random beweging
 			{
 				teller = 0;
 				int tmpKost = bestOpl.getKost();
@@ -111,8 +126,11 @@ public class Main {
 			}
 			teller++;
 		}
+<<<<<<< HEAD
 		
 		
+=======
+>>>>>>> branch 'main' of https://github.com/jasperZoinks/BB_AI.git
 	}
 	
 	public void writeSolution(Oplossing curOplossing) {
@@ -121,14 +139,20 @@ public class Main {
 			writer.Schrijven();
 			//System.out.println("oplossing --> weggeschreven!");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
-		Main m = new Main();
-
+		int duur;
+		if(args.length >= 1)
+		{
+			duur = Integer.parseInt(args[0]);
+		}
+		else
+		{
+			duur = 5;
+		}
+		Main m = new Main(duur);
 	}
-
 }

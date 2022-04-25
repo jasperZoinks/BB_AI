@@ -246,8 +246,8 @@ public class Oplossing {
 		return comboOpl;
 	}
 	
+	//Dupliceer een oplossing
 	public Oplossing duplicate() {
-		
 		ArrayList<Auto> cleanedCar = new ArrayList<Auto>();
 		ArrayList<Request> cleanedReq = new ArrayList<Request>();
 		this.cleanUp(cleanedCar, cleanedReq);
@@ -258,11 +258,13 @@ public class Oplossing {
 		return dup;
 	}
 	
+	//Verplaats de i-de naar een random zone
 	public void changeOne(int i) {
 		int newZoneID = (int) (Math.random() * this.zones.size());
 		this.autos.get(i).setZone(this.zones.get(newZoneID));
 	}
 	
+	//wissel het i-de request met een random request
 	public void changeOrder(int i) {
 		int newPlace = (int) (Math.random() * this.req.size());
 		Request tmp = this.req.get(newPlace);
