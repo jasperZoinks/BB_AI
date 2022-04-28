@@ -1,8 +1,10 @@
 package pack;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Uitschrijver {
 
@@ -52,5 +54,34 @@ public class Uitschrijver {
 		}
 		fw.close();
 		System.out.println("Weggeschrijven - OK");
+	}
+	public void finalOplossing(int threads) throws IOException {
+		
+		String[] s = outputfile.split("\\.");
+		File bestFile = null;
+		int bestRes = 100000;
+		for(int nr = 0; nr<threads; nr++)
+		{
+			String outputfilename = s[0] +"_"+ nr +"."+ s[1];
+			File file = new File(outputfilename);
+			Scanner myReader = new Scanner(file);
+			String data = myReader.nextLine();
+			System.out.println(data);
+			myReader.close();
+			if(Integer.parseInt(data) < bestRes)
+			{
+				bestFile = file;
+				bestRes = Integer.parseInt(data);
+			}
+		}
+		Scanner myReader = new Scanner(bestFile);
+		FileWriter fw = new FileWriter(this.outputfile);
+		while(myReader.hasNextLine())
+		{
+			String data = myReader.nextLine();
+			fw.write(data + "\n");
+		}
+		myReader.close();
+		fw.close();
 	}
 }

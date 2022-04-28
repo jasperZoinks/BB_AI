@@ -2,6 +2,7 @@ package pack;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Main extends Thread{
 	private String inputfile;
@@ -137,11 +138,24 @@ public class Main extends Thread{
 			duur = Integer.parseInt(args[2]);
 			threads = Integer.parseInt(args[3]);
 			
+			Main m = null;
 			for(int i=0; i<threads; i++)
 			{
-				Main m = new Main(inputfile, outputfile, duur, i);
+				m = new Main(inputfile, outputfile, duur, i);
 				m.start();
 			}
+			
+			while(true) {
+				if(!m.isAlive())
+				{
+					System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+					TimeUnit.MILLISECONDS.sleep(100);
+					Uitschrijver uit = new Uitschrijver(outputfile);
+					uit.finalOplossing(threads);
+					break;
+				}
+			}
+			
 		}
 		catch (Exception e)
 		{
