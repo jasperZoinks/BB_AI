@@ -131,12 +131,14 @@ public class Main extends Thread{
 		String outputfile = "out.txt";
 		int duur = 5;
 		int threads = 1;
+		int seed = 0;
 		try
 		{
 			inputfile = args[0];
 			outputfile = args[1];
 			duur = Integer.parseInt(args[2]);
-			threads = Integer.parseInt(args[3]);
+			seed = Integer.parseInt(args[3]); //thanks voor de seed
+			threads = Integer.parseInt(args[4]);
 			
 			Main m = null;
 			for(int i=0; i<threads; i++)
