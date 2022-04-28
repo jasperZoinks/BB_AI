@@ -1,6 +1,7 @@
 package pack;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class InitOpl {
 
@@ -28,6 +29,22 @@ public class InitOpl {
 		{
 			autos.get(i).setZone(zones.get(j++));
 			if(j==zones.size()) {j=0;}
+		}
+		this.opl.setAutos(autos);
+		this.opl.setZones(zones);
+	}
+	
+	public void verdeelAutosRandom() {
+		ArrayList<Auto> autos = opl.getAutos(); 
+		ArrayList<Zone> zones = opl.getZones();
+		int j=0;
+		Random rand = new Random();	//de seed van deze random fctie is een gekregen argument
+		int upperRandom=opl.getZones().size();		
+		int randomInt;
+		for(int i=0; i<autos.size(); i++)
+		{
+			randomInt=rand.nextInt(upperRandom);
+			autos.get(i).setZone(zones.get(randomInt));
 		}
 		this.opl.setAutos(autos);
 		this.opl.setZones(zones);

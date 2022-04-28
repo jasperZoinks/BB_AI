@@ -2,6 +2,7 @@ package pack;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
 
 public class Oplossing {
 
@@ -271,5 +272,16 @@ public class Oplossing {
 		this.req.set(i, tmp);
 		
 	}
+	public void changeOrder() {
+		
+		Collections.shuffle(this.req);
+		
+	}
+	public void changeOrderWithinReq(int i) {
+		
+		Collections.shuffle(this.req.get(i).getAutos());
+		
+	}
+
 	
 }

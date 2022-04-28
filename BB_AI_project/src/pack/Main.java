@@ -27,6 +27,7 @@ public class Main extends Thread{
 		String pathToFile = this.inputfile;
 		Oplossing firstSol=nInlezer.readIn(pathToFile);
 		InitOpl initOpl = new InitOpl(firstSol);
+		
 		initOpl.verdeelAutos();
 		try {
 			writer.Schrijven(initOpl.getOpl());
@@ -48,25 +49,26 @@ public class Main extends Thread{
 			newOpl = bestOpl.makeChanges();
 						
 			if(newOpl.getKost()<bestOpl.getKost()) {
-				System.out.println("--------");
-				System.out.println("better solution found!");
-				System.out.println("Old Cost: "+ bestOpl.getKost()+" , New Cost : "+newOpl.getKost());
+				//System.out.println("--------");
+				//System.out.println("better solution found!");
+				//System.out.println("Old Cost: "+ bestOpl.getKost()+" , New Cost : "+newOpl.getKost());
 				
 				bestOpl=newOpl;
 				this.writeSolution(bestOpl);
+				System.out.println(bestOpl.getKost());
 			}
-			else
-			{
-				//System.out.println("Geen betere Opl " + bestOpl.getKost() + ", " + newOpl.getKost());
-			}
+
+			
 			if( (counter%100000)==0) {
 				counter=0;
 				System.out.println("\tBRRrrRRrrRrR CalCuLATinG......");
 			}	
+			
 		}
 		*/
 		
 		//Optie 2
+		
 		Oplossing bestOpl = initOpl.getOpl();
 		bestOpl.setKost(bestOpl.calcKost());
 		Oplossing allTimeBestOpl = bestOpl.duplicate();
@@ -87,16 +89,20 @@ public class Main extends Thread{
 			for(int i = 0; i<bestOpl.getReq().size(); i++) //LS adhv het wijzigen van de volgorde van requests
 			{
 				Oplossing newOpl = bestOpl.duplicate();
+				
 				newOpl.changeOrder(i);
+				//newOpl.changeOrder();
+				newOpl.changeOrderWithinReq(i);
 				newOpl.koppelReq(newOpl);
+				
 				potOpl.add(newOpl);				
 			}
 			for(int i = 0;i<potOpl.size(); i++) //Check of er een betere oplossing gevonden is
 			{ 
 				if(potOpl.get(i).getKost() < bestOpl.getKost())
 				{
-					System.out.println("better solution found!");
-					System.out.println("Old Cost: "+ bestOpl.getKost()+" , New Cost : " + potOpl.get(i).getKost());
+					//System.out.println("better solution found!");
+					//System.out.println("Old Cost: "+ bestOpl.getKost()+" , New Cost : " + potOpl.get(i).getKost());
 					
 					bestOpl = potOpl.get(i);
 					teller = 0;
@@ -110,6 +116,7 @@ public class Main extends Thread{
 						} catch (IOException e) {
 							System.out.println("Wegschrijven mislukt.");
 						}
+						System.out.println(allTimeBestOpl.getKost());
 					}
 				}
 			}
@@ -119,8 +126,8 @@ public class Main extends Thread{
 				int tmpKost = bestOpl.getKost();
 				bestOpl.changeOne((int)(Math.random() * bestOpl.getAutos().size()));
 				bestOpl.koppelReq(bestOpl);
-				System.out.println("\n random change");
-				System.out.println("Old Cost: "+ tmpKost+" , New Cost : " + bestOpl.getKost());
+				//System.out.println("\n random change");
+				//System.out.println("Old Cost: "+ tmpKost+" , New Cost : " + bestOpl.getKost());
 			}
 			teller++;
 		}
