@@ -68,7 +68,6 @@ public class Main extends Thread{
 		*/
 		
 		//Optie 2
-		
 		Oplossing bestOpl = initOpl.getOpl();
 		bestOpl.setKost(bestOpl.calcKost());
 		Oplossing allTimeBestOpl = bestOpl.duplicate();
@@ -123,7 +122,7 @@ public class Main extends Thread{
 			if(teller > 150) //Wanneer er 150 keer geen verbetering komt -> maak bewust een random beweging
 			{
 				teller = 0;
-				int tmpKost = bestOpl.getKost();
+				//int tmpKost = bestOpl.getKost();
 				bestOpl.changeOne((int)(Math.random() * bestOpl.getAutos().size()));
 				bestOpl.koppelReq(bestOpl);
 				//System.out.println("\n random change");
@@ -164,7 +163,6 @@ public class Main extends Thread{
 					break;
 				}
 			}
-			
 		}
 		catch (Exception e)
 		{
